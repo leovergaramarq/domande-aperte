@@ -1,0 +1,406 @@
+[
+    {
+        "category": "Discrete distributions",
+        "question": "Bernoulli"
+    },
+    {
+        "category": "Discrete distributions",
+        "question": "Binomial"
+    },
+    {
+        "category": "Discrete distributions",
+        "question": "Geometric"
+    },
+    {
+        "category": "Discrete distributions",
+        "question": "Poisson"
+    },
+    {
+        "category": "Discrete distributions",
+        "question": "Categorical"
+    },
+    {
+        "category": "Continuous distributions",
+        "question": "Normal"
+    },
+    {
+        "category": "Continuous distributions",
+        "question": "Exponential"
+    },
+    {
+        "category": "Continuous distributions",
+        "question": "Uniform"
+    },
+    {
+        "category": "Continuous distributions",
+        "question": "Gamma"
+    },
+    {
+        "category": "Continuous distributions",
+        "question": "Inv-Gamma"
+    },
+    {
+        "category": "Continuous distributions",
+        "question": "Beta"
+    },
+    {
+        "category": "Continuous distributions",
+        "question": "Chi-Squared"
+    },
+    {
+        "category": "Continuous distributions",
+        "question": "Weibull"
+    },
+    {
+        "category": "Continuous distributions",
+        "question": "Student's t"
+    },
+    {
+        "category": "Continuous distributions",
+        "question": "Dirichlet"
+    },
+    {
+        "category": "Continuous distributions",
+        "question": "Gamma function (Special, write properties)"
+    },
+    {
+        "category": "Properties",
+        "question": "E[X]"
+    },
+    {
+        "category": "Properties",
+        "question": "Var(X)"
+    },
+    {
+        "category": "Properties",
+        "question": "E[c|Y] where c ∈ R"
+    },
+    {
+        "category": "Properties",
+        "question": "E[aX_1 + bX_2|Y]"
+    },
+    {
+        "category": "Properties",
+        "question": "E[X|X]"
+    },
+    {
+        "category": "Properties",
+        "question": "E[Xg(Y)|Y]"
+    },
+    {
+        "category": "Properties",
+        "question": "Var(aX)"
+    },
+    {
+        "category": "Properties",
+        "question": "Var(ax+-b)"
+    },
+    {
+        "category": "Properties",
+        "question": "Var(aX+bY)"
+    },
+    {
+        "category": "Properties",
+        "question": "Var(k)"
+    },
+    {
+        "category": "Questions",
+        "question": "Give me the E and Var from the moments of the distribution"
+    },
+    {
+        "category": "Questions",
+        "question": "Give the definition of a Markov chain (X_n)_{n ≥ 1} in R"
+    },
+    {
+        "category": "Questions",
+        "question": "Give the formal and informal definition of an irreducible Markov chain (X_n)_{n ≥ 1} in R"
+    },
+    {
+        "category": "Questions",
+        "question": "Give the formal and informal definition of a recurrent Markov chain (X_n)_{n ≥ 1} in R"
+    },
+    {
+        "category": "Questions",
+        "question": "What does it informally mean that a Markov chain is Harris-recurrent? Why do we assume Harris-recurrence instead of recurrence?"
+    },
+    {
+        "category": "Questions",
+        "question": "Write the Ergodic theorem for irreducible and Harris-recurrent Markov chains"
+    },
+    {
+        "category": "Questions",
+        "question": "If the goal is to approximate the posterior mean of θ_1 (the target integral), the first component of the unknown parameter vector in a Bayesian model, using MCMC, which result we need to apply? How can we make the method to work? Which approximation of the target integral do we consider?"
+    },
+    {
+        "category": "Questions",
+        "question": "Prove that reversibility of π implies π being invariant"
+    },
+    {
+        "category": "Questions",
+        "question": "Describe a random walk MH algorithm"
+    },
+    {
+        "category": "Questions",
+        "question": "Describe a Gibbs sampler algorithm"
+    },
+    {
+        "category": "Questions",
+        "question": "Give the definition of an exchangeable sequence (Y_n) n ≥ 1 of r.v.'s"
+    },
+    {
+        "category": "Questions",
+        "question": "Give the definition of an exchangeable sequence (Y_n) n ≥ 1 of binary r.v.'"
+    },
+    {
+        "category": "Questions",
+        "question": "Can we distinguish individuals in a dataset of exchangeable observations?"
+    },
+    {
+        "category": "Questions",
+        "question": "If (Y1, Y2, Y3) is exchangeable, how can I compute the marginal law of Y1, of Y2, of Y3?"
+    },
+    {
+        "category": "Questions",
+        "question": "Write down the de Finetti's theorem for binary r.v.'s. Make a few comments on it."
+    },
+    {
+        "category": "Questions",
+        "question": "Describe two alternative methods to choose among J + 1 models {M0, M1, . . . , MJ}"
+    },
+    {
+        "category": "Questions",
+        "question": "Describe the formal approach to model choice through posterior probabilities that each model is correct"
+    },
+    {
+        "category": "Questions",
+        "question": "Compute the log pseudo-marginal likelihood (LPML) using only the output of an MCMC from the full posterior"
+    },
+    {
+        "category": "Questions",
+        "question": "What do we mean with predictive information criteria? Enumerate a few of them"
+    },
+    {
+        "category": "Questions",
+        "question": "Explain why the Bayesian approach to linear models (or more general regression models) gives the same inference either if covariates are fixed or if they are random and there is prior independence between covariates and the rest of the parameters."
+    },
+    {
+        "category": "Questions",
+        "question": "Describe the conjugate prior of the regression parameter β = ( β_0 , β_1 , . . . , β_k ) in the linear model when the variance σ^2 of the observations is known. Describe the hyperparameters a posteriori and comment on their expressions."
+    },
+    {
+        "category": "Questions",
+        "question": "Describe the conjugate prior of (β, σ^2) in the homoscedastic linear model. What is the most adopted prior for the homoscedastic linear model?"
+    },
+    {
+        "category": "Questions",
+        "question": "Describe a Bayesian linear mixed-effects model for grouped data {Y_{ij}, x_{ij}, i = 1, 2, ..., n_j, j = 1, ..., J}, being explicit with the marginal prior of the random-effects parameters"
+    },
+    {
+        "category": "Questions",
+        "question": "Describe how you would sample from the posterior predictive distribution of subjects from a new group from the populations of groups"
+    },
+    {
+        "category": "Questions",
+        "question": "Describe how you would sample from the predictive distributions for a new subject from a group in the study"
+    },
+    {
+        "category": "Questions",
+        "question": "Describe a Gaussian spatial regression model (conditional distribution of the vector of datapoints + prior for the unknown parameters) for (unidimensional) point-referenced data"
+    },
+    {
+        "category": "Questions",
+        "question": "In the case above, what do we mean by Bayesian kriging, and how does this work?"
+    },
+    {
+        "category": "Questions",
+        "question": "What do we mean by CAR model (or distribution) of an n n-dimensional random vector? How is this joint distribution defined"
+    },
+    {
+        "category": "Questions",
+        "question": "Derive the likelihood for L( θ | (y_1, δ_1)...(y_n, δ_n)) where this is right censored data. What assumptions may be used?"
+    },
+    {
+        "category": "Questions",
+        "question": "How is defined the jeffreys prior for the parameter θ of a model?"
+    },
+    {
+        "category": "Questions",
+        "question": "How can we Approximate the posterior distribution using the Asymptotic normality?"
+    },
+    {
+        "category": "Questions",
+        "question": "Describe the augmentation trick to sample from the posterior distribution of a model"
+    },
+    {
+        "category": "Questions",
+        "question": "Describe how to do rejection sampling"
+    },
+    {
+        "category": "Questions",
+        "question": "Describe how the linear congruential generator works"
+    },
+    {
+        "category": "Questions",
+        "question": "Describe how the inverse CDF method works"
+    },
+    {
+        "category": "Questions",
+        "question": "Describe what importance sampling does"
+    },
+    {
+        "category": "Questions",
+        "question": "Describe how metropolis hasting works"
+    },
+    {
+        "category": "Questions",
+        "question": "Descrive how Gibbs sampling work"
+    },
+    {
+        "category": "Questions",
+        "question": "Describe a gibbs sampler for the probit model"
+    },
+    {
+        "category": "Questions",
+        "question": "Descrive the two main approaches for model selection"
+    },
+    {
+        "category": "Questions",
+        "question": "How to compute the LPPD using only the output of an MCMC from the full posterior?"
+    },
+    {
+        "category": "Questions",
+        "question": "Write the mathematical formulation for the SSVS hierarchical prior with binary probit likelihood"
+    },
+    {
+        "category": "Questions",
+        "question": "Describe the exponential model for survival analysis"
+    },
+    {
+        "category": "Questions",
+        "question": "Describe the Weibull model for survival analysis"
+    },
+    {
+        "category": "Questions",
+        "question": "Describe the accelerated failure time regression model for survival analysis"
+    },
+    {
+        "category": "Questions",
+        "question": "Write the relationship between the hazard function and the survival function"
+    },
+    {
+        "category": "Questions",
+        "question": "Define a stricly stationary process"
+    },
+    {
+        "category": "Questions",
+        "question": "Describe the relationship between the semivariogram and the covariance function"
+    },
+    {
+        "category": "Questions",
+        "question": "What is an isotropic model?  What is an homogeneous process?"
+    },
+    {
+        "category": "Questions",
+        "question": "Describe the semivariogram and covariance of the exponential homogeneous process"
+    },
+    {
+        "category": "Questions",
+        "question": "Describe the semivariogram and covariance of the Powered exponential homogeneous process"
+    },
+    {
+        "category": "Questions",
+        "question": "Describe the semivariogram and covariance of the Gaussian homogeneous process"
+    },
+    {
+        "category": "Questions",
+        "question": "Describe the semivariogram and covariance of the Matern homogeneous process"
+    },
+    {
+        "category": "Questions",
+        "question": "Descrive the spatial gaussian regression model"
+    },
+    {
+        "category": "Questions",
+        "question": "Describe Bayesian kriging"
+    },
+    {
+        "category": "Questions",
+        "question": "Mention the measures of spatial association"
+    },
+    {
+        "category": "Questions",
+        "question": "Describe the parts of a Areal data model"
+    },
+    {
+        "category": "Questions",
+        "question": "Describe the CAR model"
+    },
+    {
+        "category": "Questions",
+        "question": "Describe the modification of the intrinsic CAR model"
+    },
+    {
+        "category": "Questions",
+        "question": "Describe the GLMM + CAR prio son spatial random effects and all the possible models for the likelihood"
+    },
+    {
+        "category": "Questions",
+        "question": "List the priors in CARBayes package"
+    },
+    {
+        "category": "Questions",
+        "question": "Write the Gaussian Markov Random Field"
+    },
+    {
+        "category": "Questions",
+        "question": "Describe the intrinsic prior for Spatial modesl, and its drawbacks"
+    },
+    {
+        "category": "Questions",
+        "question": "Describe the BYM model for spatial data and its drawbacks"
+    },
+    {
+        "category": "Questions",
+        "question": "Describe the Alternative CAR prior for spatial data and its drawbacks"
+    },
+    {
+        "category": "Questions",
+        "question": "Describe the localised spatial autocorrelation for spatial data and its drawbacks"
+    },
+    {
+        "category": "Questions",
+        "question": "Describe the spatio-temporal models"
+    },
+    {
+        "category": "Questions",
+        "question": "Describe the dirichlet process as prior and what posterior distribution it gives"
+    },
+    {
+        "category": "Questions",
+        "question": "Give the definition of Stick breaking construction"
+    },
+    {
+        "category": "Questions",
+        "question": "Describe the weak convergence of sequence of Dirichlet processes"
+    },
+    {
+        "category": "Questions",
+        "question": "Describe the Generalized Polya Urn mechanism"
+    },
+    {
+        "category": "Questions",
+        "question": "Describe the random partititon model"
+    },
+    {
+        "category": "Questions",
+        "question": "Describe the dirichlet process mixture model, and its posterior distribution"
+    },
+    {
+        "category": "Questions",
+        "question": "Describe how clustering is done with DPMM"
+    },
+    {
+        "category": "Questions",
+        "question": "Describe the chinese restaurant process"
+    }
+]
