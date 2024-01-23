@@ -1,33 +1,100 @@
-import { getQuestions } from "./api.js";
+import {
+  getQuestions,
+  isApiRemote,
+  migrateQuestions,
+  useLocalApi,
+  useRemoteApi,
+} from "./api.js";
+import { shuffle } from "./utils.js";
+
+const ASSET_CLOUD = "assets/icons/cloud.svg";
+const ASSET_FOLDER = "assets/icons/folder.svg";
 
 window.addEventListener("DOMContentLoaded", async () => {
-  const $question = document.querySelector("#question");
-  const $questionInfo = document.querySelector("#question-info");
-  const $category = document.querySelector("#category");
+  // try {
+  //   await migrateQuestions();
+  // } catch (err) {
+  //   console.log(err);
+  // }
 
-  const questions = await getQuestions();
-  if (!questions.length) return;
+  const $question = document.querySelector(".question");
+  const $questionInfo = document.querySelector(".question-info");
+  const $category = document.querySelector(".category");
+  const $nextBtn = document.querySelector(".next-btn");
+  const $apiType = document.querySelector(".api-type");
+  let $apiTypeImg;
 
-  const questionsLists = {};
+  let categoryIndex;
+  let questionIndex;
+  let questionsLists;
+  let categories;
 
-  questions.forEach(({ category, question }) => {
-    if (!questionsLists[category]) questionsLists[category] = [];
-    questionsLists[category].push({
-      question,
-      alreadyAsked: false,
+  setApiTypeImg();
+  await init();
+
+  $nextBtn.addEventListener("click", nextQuestion);
+  $apiType.addEventListener("click", toggleApiTypeImg);
+
+  function setApiTypeImg() {
+    if (!$apiTypeImg) {
+      $apiTypeImg = document.createElement("img");
+      $apiTypeImg.src = isApiRemote() ? ASSET_CLOUD : ASSET_FOLDER;
+      $apiType.appendChild($apiTypeImg);
+    } else {
+      toggleApiTypeImg();
+    }
+  }
+
+  function toggleApiTypeImg() {
+    if (isApiRemote()) {
+      useLocalApi();
+    } else {
+      useRemoteApi();
+    }
+
+    $apiTypeImg.src = isApiRemote() ? ASSET_CLOUD : ASSET_FOLDER;
+    init().catch(console.log);
+  }
+
+  async function init() {
+    let questions;
+    try {
+      questions = await getQuestions();
+    } catch (err) {
+      alert("Errore nel caricamento delle domande!");
+      return;
+    }
+
+    if (!questions.length) {
+      alert("Non ci sono domande nel database!");
+      return;
+    }
+
+    categoryIndex = 0;
+    questionIndex = 0;
+    questionsLists = getQuestionsLists(questions);
+    categories = Object.keys(questionsLists);
+
+    nextQuestion();
+  }
+
+  function getQuestionsLists(questions) {
+    const questionsLists = {};
+
+    questions.forEach(({ category, question }) => {
+      if (!questionsLists[category]) questionsLists[category] = [];
+      questionsLists[category].push({
+        question,
+        alreadyAsked: false,
+      });
     });
-  });
 
-  const categories = Object.keys(questionsLists);
-  let categoryIndex = 0;
-  let questionIndex = 0;
+    Object.keys(questionsLists).forEach((category) => {
+      questionsLists[category] = shuffle(questionsLists[category]);
+    });
 
-  categories.forEach((category) => {
-    questionsLists[category] = shuffle(questionsLists[category]);
-  });
-  nextQuestion();
-
-  document.querySelector("#next-btn").addEventListener("click", nextQuestion);
+    return questionsLists;
+  }
 
   function nextQuestion() {
     if (categoryIndex >= categories.length) {
@@ -59,24 +126,3 @@ window.addEventListener("DOMContentLoaded", async () => {
     questionObj.alreadyAsked = true;
   }
 });
-
-// https://stackoverflow.com/a/2450976/20250972
-function shuffle(array) {
-  let currentIndex = array.length;
-  let randomIndex;
-
-  // While there remain elements to shuffle.
-  while (currentIndex > 0) {
-    // Pick a remaining element.
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex--;
-
-    // And swap it with the current element.
-    [array[currentIndex], array[randomIndex]] = [
-      array[randomIndex],
-      array[currentIndex],
-    ];
-  }
-
-  return array;
-}
