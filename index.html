@@ -6,10 +6,48 @@
     <title>DomandeAperte</title>
     <link rel="stylesheet" href="assets/css/normalize.css" />
     <link rel="stylesheet" href="assets/css/stylesheet.css" />
+    <link rel="icon" href="assets/img/logo.png" type="image/png" />
   </head>
   <body>
     <div class="content">
       <span class="api-type"></span>
+      <span class="btn-add-question"></span>
+      <dialog class="modal-add-question">
+        <form class="form-add-question">
+          <div class="modal-title">Add question</div>
+          <div class="input-col">
+            <div class="input-question input-elem">
+              <label for="field-question">Question</label>
+              <input
+                type="text"
+                name="field-question"
+                id="field-question"
+                placeholder="Insert the question"
+                required
+              />
+            </div>
+            <div class="input-category input-elem">
+              <label for="category-field">Category</label>
+              <input
+                type="text"
+                name="category-field"
+                id="category-field"
+                placeholder="Insert the category"
+                required
+              />
+            </div>
+          </div>
+          <div class="form-submit-area">
+            <button class="btn-submit-form btn-primary">Add</button>
+            <img
+              src="assets/icons/check.svg"
+              alt="check"
+              class="check-status"
+            />
+          </div>
+        </form>
+        <div class="btn-close-modal"></div>
+      </dialog>
       <div class="main">
         <div class="title">Domande Aperte</div>
         <div class="description">
@@ -19,7 +57,7 @@
           <div class="question-info"></div>
           <div class="question"></div>
         </div>
-        <div class="next-btn">Next</div>
+        <div class="btn-next btn-primary">Next</div>
       </div>
     </div>
 

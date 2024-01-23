@@ -29,6 +29,21 @@ export async function getQuestions() {
   else return await getQuestionsRemote();
 }
 
+export async function addQuestion(question, category) {
+  if (isApiLocal) {
+    alert("Non puoi aggiungere domande in locale!");
+    return;
+  }
+
+  await fetch(API_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ question, category }),
+  });
+}
+
 export async function migrateQuestions() {
   if (isApiLocal) {
     let questionsLocal = getQuestionsLocal();
@@ -78,7 +93,10 @@ export async function deleteAll() {
 }
 
 export async function deleteById(id) {
-  if (isApiLocal) return;
+  if (isApiLocal) {
+    alert("Non puoi cancellare le domande in locale!");
+    return;
+  }
   console.log(`${API_URL}/${id}`);
   await fetch(`${API_URL}/${id}`, {
     method: "DELETE",

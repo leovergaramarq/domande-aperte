@@ -47,6 +47,18 @@ body {
   color: #fff;
 }
 
+.btn-primary {
+  background-color: #eeb868;
+  width: min-content;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  color: #250f49;
+}
+
 .content {
   position: relative;
 }
@@ -88,16 +100,7 @@ body {
   font-weight: 400;
 }
 
-.next-btn {
-  background-color: #eeb868;
-  width: min-content;
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-  color: #250f49;
+.btn-next {
   margin-top: 2rem;
 }
 
@@ -105,7 +108,7 @@ body {
   cursor: pointer;
   position: absolute;
   top: 1rem;
-  right: 1rem;
+  left: 1rem;
   transition: all 0.3s ease-in-out;
 }
 
@@ -116,4 +119,122 @@ body {
 .api-type img {
   width: 64px;
   height: 64px;
+}
+
+.btn-add-question {
+  cursor: pointer;
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  background-color: #eeb868;
+  color: #250f49;
+  width: 3rem;
+  height: 3rem;
+  font-size: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+
+.btn-add-question::before {
+  content: "+";
+}
+
+.btn-add-question:hover {
+  scale: 1.1;
+}
+
+.modal-add-question {
+  position: relative;
+  margin: auto;
+  border-color: #eeb868;
+  border-radius: 5px;
+}
+
+.btn-close-modal {
+  cursor: pointer;
+  position: absolute;
+  top: 0.25rem;
+  right: 0.25rem;
+  background-color: rgb(190, 190, 190);
+  color: #250f49;
+  width: 1.5rem;
+  height: 1.5rem;
+  font-size: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+
+.btn-close-modal::before {
+  content: "x";
+}
+
+.modal-title {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-bottom: 2rem;
+  color: #eeb868;
+}
+
+.form-add-question {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #250f49;
+  color: white;
+  padding: 24px 12px;
+}
+
+.input-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.input-elem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.input-elem input {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  border: 1px solid #eeb868;
+  background-color: #250f49;
+  color: white;
+}
+
+.form-submit-area {
+  position: relative;
+  /* display: flex;
+  align-items: center;
+  gap: 1rem; */
+  margin-top: 2rem;
+}
+
+.form-submit-area .check-status {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  right: -24px;
+  top: 50%;
+  transform: translateY(-50%);
+  /* visibility: hidden; */
+  /* display: none; */
+  opacity: 0;
+  transition: all 0.3s ease-in-out;
+}
+
+.form-submit-area .check-status.success {
+  /* visibility: visible; */
+  /* display: block; */
+  opacity: 1;
 }

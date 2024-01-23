@@ -1,28 +1,25 @@
-import {
-  getQuestions,
-  isApiRemote,
-  migrateQuestions,
-  useLocalApi,
-  useRemoteApi,
-} from "./api.js";
+import * as api from "./api.js";
 import { shuffle } from "./utils.js";
 
 const ASSET_CLOUD = "assets/icons/cloud.svg";
 const ASSET_FOLDER = "assets/icons/folder.svg";
 
 window.addEventListener("DOMContentLoaded", async () => {
-  // try {
-  //   await migrateQuestions();
-  // } catch (err) {
-  //   console.log(err);
-  // }
+  api.deleteById(103); // debug
 
   const $question = document.querySelector(".question");
   const $questionInfo = document.querySelector(".question-info");
   const $category = document.querySelector(".category");
-  const $nextBtn = document.querySelector(".next-btn");
+  const $btnNext = document.querySelector(".btn-next");
   const $apiType = document.querySelector(".api-type");
   let $apiTypeImg;
+  const $btnAddQuestion = document.querySelector(".btn-add-question");
+  const $modalAddQuestion = document.querySelector(".modal-add-question");
+  const $btnCloseModal = document.querySelector(".btn-close-modal");
+  const $btnSubmitForm = document.querySelector(".btn-submit-form");
+  const $checkStatus = document.querySelector(
+    ".form-submit-area .check-status"
+  );
 
   let categoryIndex;
   let questionIndex;
@@ -32,13 +29,17 @@ window.addEventListener("DOMContentLoaded", async () => {
   setApiTypeImg();
   await init();
 
-  $nextBtn.addEventListener("click", nextQuestion);
+  $btnNext.addEventListener("click", nextQuestion);
   $apiType.addEventListener("click", toggleApiTypeImg);
+  $btnAddQuestion.addEventListener("click", onAddQuestion);
+  $btnCloseModal.addEventListener("click", onCloseModal);
+  $btnSubmitForm.addEventListener("click", onSubmitForm);
 
   function setApiTypeImg() {
     if (!$apiTypeImg) {
       $apiTypeImg = document.createElement("img");
-      $apiTypeImg.src = isApiRemote() ? ASSET_CLOUD : ASSET_FOLDER;
+      $apiTypeImg.src = api.isApiRemote() ? ASSET_CLOUD : ASSET_FOLDER;
+      $apiTypeImg.alt = "api type";
       $apiType.appendChild($apiTypeImg);
     } else {
       toggleApiTypeImg();
@@ -46,20 +47,20 @@ window.addEventListener("DOMContentLoaded", async () => {
   }
 
   function toggleApiTypeImg() {
-    if (isApiRemote()) {
-      useLocalApi();
+    if (api.isApiRemote()) {
+      api.useLocalApi();
     } else {
-      useRemoteApi();
+      api.useRemoteApi();
     }
 
-    $apiTypeImg.src = isApiRemote() ? ASSET_CLOUD : ASSET_FOLDER;
+    $apiTypeImg.src = api.isApiRemote() ? ASSET_CLOUD : ASSET_FOLDER;
     init().catch(console.log);
   }
 
   async function init() {
     let questions;
     try {
-      questions = await getQuestions();
+      questions = await api.getQuestions();
     } catch (err) {
       alert("Errore nel caricamento delle domande!");
       return;
@@ -124,5 +125,56 @@ window.addEventListener("DOMContentLoaded", async () => {
     })`;
     $question.textContent = questionObj.question;
     questionObj.alreadyAsked = true;
+  }
+
+  function onAddQuestion() {
+    $modalAddQuestion.showModal();
+  }
+
+  function onCloseModal() {
+    $modalAddQuestion.close();
+  }
+
+  async function onSubmitForm(e) {
+    e.preventDefault();
+
+    const $form = document.querySelector(".form-add-question");
+    const $inputQuestion = $form.querySelector(".input-question input");
+    const $inputCategory = $form.querySelector(".input-category input");
+
+    const question = $inputQuestion.value;
+    const category = $inputCategory.value;
+    console.log($inputQuestion, category);
+
+    if (!question || !category) {
+      alert("Compila tutti i campi!");
+      return;
+    }
+
+    try {
+      await api.addQuestion(question, category);
+    } catch (err) {
+      alert("Errore nell'aggiunta della domanda!");
+      return;
+    }
+
+    if (!$checkStatus.classList.contains("success")) {
+      $checkStatus.classList.add("success");
+      setTimeout(() => {
+        if ($checkStatus.classList.contains("success")) {
+          $checkStatus.classList.remove("success");
+        }
+      }, 1000);
+    }
+
+    $form.reset();
+    // onCloseModal();
+
+    if (!questionsLists[category]) questionsLists[category] = [];
+    questionsLists[category].push({
+      question,
+      alreadyAsked: false,
+    });
+    categories = Object.keys(questionsLists);
   }
 });
