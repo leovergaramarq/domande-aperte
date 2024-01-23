@@ -170,11 +170,13 @@ window.addEventListener("DOMContentLoaded", async () => {
     $form.reset();
     // onCloseModal();
 
-    if (!questionsLists[category]) questionsLists[category] = [];
-    questionsLists[category].push({
-      question,
-      alreadyAsked: false,
-    });
-    categories = Object.keys(questionsLists);
+    // if (!questionsLists[category]) questionsLists[category] = [];
+    // questionsLists[category].push({
+    //   question,
+    //   alreadyAsked: false,
+    // });
+    // categories = Object.keys(questionsLists);
+
+    init().catch(console.log);
   }
 });
