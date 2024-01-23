@@ -5,7 +5,7 @@ const ASSET_CLOUD = "assets/icons/cloud.svg";
 const ASSET_FOLDER = "assets/icons/folder.svg";
 
 window.addEventListener("DOMContentLoaded", async () => {
-  api.deleteById(103); // debug
+  // api.deleteById(103); // debug
 
   const $question = document.querySelector(".question");
   const $questionInfo = document.querySelector(".question-info");
