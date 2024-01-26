@@ -20,9 +20,12 @@ window.addEventListener("DOMContentLoaded", async () => {
   const $checkStatus = document.querySelector(
     ".form-submit-area .check-status"
   );
+  const $categoryLeft = document.querySelector(".category-left");
+  const $categoryRight = document.querySelector(".category-right");
 
   let categoryIndex;
   let questionIndex;
+  let questions;
   let questionsLists;
   let categories;
 
@@ -34,6 +37,9 @@ window.addEventListener("DOMContentLoaded", async () => {
   $btnAddQuestion.addEventListener("click", onAddQuestion);
   $btnCloseModal.addEventListener("click", onCloseModal);
   $btnSubmitForm.addEventListener("click", onSubmitForm);
+  $categoryLeft.addEventListener("click", onPrevCategory);
+  $categoryRight.addEventListener("click", onNextCategory);
+  window.addEventListener("keydown", onKeyPressed);
 
   function setApiTypeImg() {
     if (!$apiTypeImg) {
@@ -58,7 +64,6 @@ window.addEventListener("DOMContentLoaded", async () => {
   }
 
   async function init() {
-    let questions;
     try {
       questions = await api.getQuestions();
     } catch (err) {
@@ -73,13 +78,13 @@ window.addEventListener("DOMContentLoaded", async () => {
 
     categoryIndex = 0;
     questionIndex = 0;
-    questionsLists = getQuestionsLists(questions);
+    questionsLists = getQuestionsLists();
     categories = Object.keys(questionsLists);
 
     nextQuestion();
   }
 
-  function getQuestionsLists(questions) {
+  function getQuestionsLists() {
     const questionsLists = {};
 
     questions.forEach(({ category, question }) => {
@@ -106,7 +111,7 @@ window.addEventListener("DOMContentLoaded", async () => {
     const category = categories[categoryIndex];
     const questionObj = questionsLists[category][questionIndex];
 
-    if (questionIndex >= questionsLists[category].length - 1) {
+    if (questionIndex > questionsLists[category].length - 1) {
       categoryIndex++;
       questionIndex = 0;
       nextQuestion();
@@ -117,6 +122,17 @@ window.addEventListener("DOMContentLoaded", async () => {
       return;
     }
 
+    renderQuestion(category, questionObj);
+  }
+
+  function renderQuestion(category, questionObj) {
+    if (!category) {
+      category = categories[categoryIndex];
+    }
+    if (!questionObj) {
+      questionObj = questionsLists[category][questionIndex];
+    }
+
     $category.textContent = `${category} (${categoryIndex + 1}/${
       categories.length
     })`;
@@ -125,6 +141,18 @@ window.addEventListener("DOMContentLoaded", async () => {
     })`;
     $question.textContent = questionObj.question;
     questionObj.alreadyAsked = true;
+
+    if (categoryIndex === 0) {
+      $categoryLeft.classList.add("hidden");
+    } else {
+      $categoryLeft.classList.remove("hidden");
+    }
+
+    if (categoryIndex === categories.length - 1) {
+      $categoryRight.classList.add("hidden");
+    } else {
+      $categoryRight.classList.remove("hidden");
+    }
   }
 
   function onAddQuestion() {
@@ -178,5 +206,31 @@ window.addEventListener("DOMContentLoaded", async () => {
     // categories = Object.keys(questionsLists);
 
     init().catch(console.log);
+  }
+
+  function onPrevCategory() {
+    if (categoryIndex <= 0) return;
+
+    categoryIndex--;
+    questionIndex = 0;
+
+    questionsLists = getQuestionsLists(questionsLists);
+    renderQuestion();
+  }
+
+  function onNextCategory() {
+    if (categoryIndex >= categories.length - 1) return;
+
+    categoryIndex++;
+    questionIndex = 0;
+
+    questionsLists = getQuestionsLists(questionsLists);
+    renderQuestion();
+  }
+
+  function onKeyPressed(e) {
+    if (e.key === "ArrowLeft") onPrevCategory();
+    else if (e.key === "ArrowRight") onNextCategory();
+    else if (e.code === "Space") nextQuestion();
   }
 });
