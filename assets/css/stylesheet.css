@@ -98,6 +98,10 @@ body {
   gap: 0.5rem;
 }
 
+.category-info {
+  text-align: center;
+}
+
 .category-info span:first-child {
   color: #eeb868;
 }
@@ -114,11 +118,11 @@ body {
   color: #eeb868;
   cursor: pointer;
 }
-
+/* 
 .category-arrow:hover {
   background-color: #eeb868;
   color: #250f49;
-}
+} */
 
 .category-left::before {
   content: "<";
@@ -318,4 +322,11 @@ body {
 
 .form-submit-area .check-status.success {
   opacity: 1;
+}
+
+@media only screen and (min-width: 768px) {
+  .category-arrow:hover {
+    background-color: #eeb868;
+    color: #250f49;
+  }
 }

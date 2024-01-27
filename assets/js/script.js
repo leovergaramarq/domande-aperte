@@ -43,7 +43,9 @@ window.addEventListener("DOMContentLoaded", async () => {
   $categoryRight.addEventListener("click", onNextCategory);
   $btnDeleteQuestion.addEventListener("click", onDeleteQuestion);
   $questionSection.addEventListener("click", toggleBtnDeleteQuestion);
-  window.addEventListener("keydown", onKeyPressed);
+  document.addEventListener("keydown", onKeyPressed);
+  document.addEventListener("touchstart", handleTouchStart, false);
+  document.addEventListener("touchmove", handleTouchMove, false);
 
   function setApiTypeImg() {
     if (!$apiTypeImg) {
@@ -245,6 +247,8 @@ window.addEventListener("DOMContentLoaded", async () => {
 
   async function onDeleteQuestion() {
     if (!confirm("Sei sicuro di voler cancellare questa domanda?")) return;
+    console.log("Confirm asked!");
+    return;
 
     const id = questionsLists[categories[categoryIndex]][questionIndex].id;
     if (id === undefined) {
@@ -271,6 +275,38 @@ window.addEventListener("DOMContentLoaded", async () => {
     if (e.key === "ArrowLeft") onPrevCategory();
     else if (e.key === "ArrowRight") nextCategory();
     else if (e.code === "Space") nextQuestion();
+  }
+
+  var xDown = null;
+  var yDown = null;
+
+  function handleTouchStart(e) {
+    const firstTouch = e.touches[0];
+    xDown = firstTouch.clientX;
+    yDown = firstTouch.clientY;
+  }
+
+  function handleTouchMove(e) {
+    if (!xDown || !yDown) {
+      return;
+    }
+
+    var xUp = e.touches[0].clientX;
+    var yUp = e.touches[0].clientY;
+
+    var xDiff = xDown - xUp;
+    var yDiff = yDown - yUp;
+
+    if (Math.abs(xDiff) > Math.abs(yDiff)) {
+      if (xDiff > 0) {
+        nextCategory();
+      } else {
+        prevCategory();
+      }
+    } else {
+    }
+    xDown = null;
+    yDown = null;
   }
 });
 
