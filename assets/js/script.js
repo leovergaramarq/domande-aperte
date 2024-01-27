@@ -7,9 +7,11 @@ const ASSET_FOLDER = "assets/icons/folder.svg";
 window.addEventListener("DOMContentLoaded", async () => {
   // api.deleteById(103); // debug
 
-  const $question = document.querySelector(".question");
-  const $questionInfo = document.querySelector(".question-info");
-  const $category = document.querySelector(".category");
+  const $questionSection = document.querySelector(".question-section");
+  const $question = document.querySelector(".question-content");
+  const $questionInfo = document.querySelector(".question-info-content");
+  const $btnDeleteQuestion = document.querySelector(".btn-delete-question");
+  const $category = document.querySelector(".category-content");
   const $btnNext = document.querySelector(".btn-next");
   const $apiType = document.querySelector(".api-type");
   let $apiTypeImg;
@@ -39,6 +41,8 @@ window.addEventListener("DOMContentLoaded", async () => {
   $btnSubmitForm.addEventListener("click", onSubmitForm);
   $categoryLeft.addEventListener("click", onPrevCategory);
   $categoryRight.addEventListener("click", onNextCategory);
+  $btnDeleteQuestion.addEventListener("click", onDeleteQuestion);
+  $questionSection.addEventListener("click", toggleBtnDeleteQuestion);
   window.addEventListener("keydown", onKeyPressed);
 
   function setApiTypeImg() {
@@ -87,9 +91,10 @@ window.addEventListener("DOMContentLoaded", async () => {
   function getQuestionsLists() {
     const questionsLists = {};
 
-    questions.forEach(({ category, question }) => {
+    questions.forEach(({ category, question, id }) => {
       if (!questionsLists[category]) questionsLists[category] = [];
       questionsLists[category].push({
+        id,
         question,
         alreadyAsked: false,
       });
@@ -125,6 +130,26 @@ window.addEventListener("DOMContentLoaded", async () => {
     renderQuestion(category, questionObj);
   }
 
+  function nextCategory() {
+    if (categoryIndex >= categories.length - 1) return;
+
+    categoryIndex++;
+    questionIndex = 0;
+
+    questionsLists = getQuestionsLists(questionsLists);
+    renderQuestion();
+  }
+
+  function prevCategory() {
+    if (categoryIndex <= 0) return;
+
+    categoryIndex--;
+    questionIndex = 0;
+
+    questionsLists = getQuestionsLists(questionsLists);
+    renderQuestion();
+  }
+
   function renderQuestion(category, questionObj) {
     if (!category) {
       category = categories[categoryIndex];
@@ -153,6 +178,8 @@ window.addEventListener("DOMContentLoaded", async () => {
     } else {
       $categoryRight.classList.remove("hidden");
     }
+
+    $btnDeleteQuestion.classList.add("hidden");
   }
 
   function onAddQuestion() {
@@ -209,28 +236,48 @@ window.addEventListener("DOMContentLoaded", async () => {
   }
 
   function onPrevCategory() {
-    if (categoryIndex <= 0) return;
-
-    categoryIndex--;
-    questionIndex = 0;
-
-    questionsLists = getQuestionsLists(questionsLists);
-    renderQuestion();
+    prevCategory();
   }
 
   function onNextCategory() {
-    if (categoryIndex >= categories.length - 1) return;
+    nextCategory();
+  }
 
-    categoryIndex++;
-    questionIndex = 0;
+  async function onDeleteQuestion() {
+    if (!confirm("Sei sicuro di voler cancellare questa domanda?")) return;
 
-    questionsLists = getQuestionsLists(questionsLists);
-    renderQuestion();
+    const id = questionsLists[categories[categoryIndex]][questionIndex].id;
+    if (id === undefined) {
+      alert("Errore nella cancellazione della domanda!");
+      return;
+    }
+
+    try {
+      await api.deleteById(id);
+    } catch (err) {
+      alert("Errore nella cancellazione della domanda! Blame the developer!");
+      return;
+    }
+
+    init().catch(console.log);
+  }
+
+  function toggleBtnDeleteQuestion(e) {
+    if (isParentOf($btnDeleteQuestion, e.target)) return;
+    $btnDeleteQuestion.classList.toggle("hidden");
   }
 
   function onKeyPressed(e) {
     if (e.key === "ArrowLeft") onPrevCategory();
-    else if (e.key === "ArrowRight") onNextCategory();
+    else if (e.key === "ArrowRight") nextCategory();
     else if (e.code === "Space") nextQuestion();
   }
 });
+
+function isParentOf($parent, $child) {
+  while ($child !== document.body.parentElement) {
+    if ($child === $parent) return true;
+    $child = $child.parentElement;
+  }
+  return false;
+}

@@ -47,6 +47,11 @@ body {
   color: #fff;
 }
 
+.hidden {
+  visibility: hidden;
+  /* display: none; */
+}
+
 .btn-primary {
   background-color: #eeb868;
   width: min-content;
@@ -105,13 +110,9 @@ body {
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+  transition: background 0.1s ease-in-out, color 0.1s ease-in-out;
   color: #eeb868;
   cursor: pointer;
-}
-
-.category-arrow.hidden {
-  visibility: hidden;
 }
 
 .category-arrow:hover {
@@ -127,11 +128,54 @@ body {
   content: ">";
 }
 
-.question-info {
-  margin-top: 1rem;
+.question-section {
+  text-align: center;
+  cursor: default;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1.5rem;
 }
 
-.question {
+.question-info {
+  position: relative;
+  /* width: min-content; */
+}
+
+/* .question-info-content {
+} */
+
+.btn-delete-question {
+  position: absolute;
+  right: -2.5rem;
+  top: -1rem;
+  /* top: 50%;
+  transform: translateY(-50%); */
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  transition: width 0.3s ease-in-out, height 0.3s ease-in-out;
+  transition: all 0.1s ease-in-out;
+}
+
+.btn-delete-question:hover {
+  scale: 1.1;
+}
+
+.btn-delete-question.hidden {
+  width: 0;
+  height: 0;
+  /* display: block; */
+  /* visibility: hidden; */
+}
+
+.btn-delete-question img {
+  width: 100%;
+  height: 100%;
+}
+
+.question-content {
+  margin-top: 0.5rem;
   font-size: 1.5rem;
   font-weight: 400;
   text-align: center;
@@ -268,8 +312,6 @@ body {
   right: -24px;
   top: 50%;
   transform: translateY(-50%);
-  /* visibility: hidden; */
-  /* display: none; */
   opacity: 0;
   transition: all 0.3s ease-in-out;
 }

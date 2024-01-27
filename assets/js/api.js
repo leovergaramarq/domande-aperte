@@ -97,7 +97,6 @@ export async function deleteById(id) {
     alert("Non puoi cancellare le domande in locale!");
     return;
   }
-  console.log(`${API_URL}/${id}`);
   await fetch(`${API_URL}/${id}`, {
     method: "DELETE",
   });
