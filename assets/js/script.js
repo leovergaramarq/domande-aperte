@@ -52,7 +52,6 @@ window.addEventListener("DOMContentLoaded", async () => {
   $categoryRight.addEventListener("click", onNextCategory);
   $btnDeleteQuestion.addEventListener("click", onDeleteQuestion);
   $questionSection.addEventListener("click", toggleBtnDeleteQuestion);
-  $audioPlayer.addEventListener("error", onAudioError);
   document.addEventListener("keydown", onKeyPressed);
   document.addEventListener("touchstart", handleTouchStart, false);
   document.addEventListener("touchmove", handleTouchMove, false);
@@ -75,15 +74,11 @@ window.addEventListener("DOMContentLoaded", async () => {
     if (musicPlaying) {
       if ($audioPlayer.paused) {
         $audioPlayer.play();
-      } else {
-        alert("Audio già in riproduzione!");
       }
     } else {
       if (!$audioPlayer.paused) {
         $audioPlayer.pause();
         // $audioPlayer.currentTime = 0;
-      } else {
-        alert("Audio già in pausa!");
       }
     }
   }
@@ -346,13 +341,6 @@ window.addEventListener("DOMContentLoaded", async () => {
     }
     xDown = null;
     yDown = null;
-  }
-
-  function onAudioError() {
-    alert("Errore nel caricamento dell'audio!");
-    $audioPlayer.load();
-    musicPlaying = false;
-    setAudio();
   }
 });
 
