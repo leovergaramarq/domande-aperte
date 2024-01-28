@@ -147,7 +147,6 @@ window.addEventListener("DOMContentLoaded", async () => {
       categoryIndex === categories.length - 1 &&
       questionIndex === lastQuestionIndex
     ) {
-      alert("Hai finito le domande!");
       return;
     }
 
@@ -162,7 +161,6 @@ window.addEventListener("DOMContentLoaded", async () => {
 
   function prevQuestion() {
     if (categoryIndex === 0 && questionIndex === 0) {
-      alert("Non ci sono domande precedenti!");
       return;
     }
 
