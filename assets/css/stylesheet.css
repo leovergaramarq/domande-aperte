@@ -163,12 +163,26 @@ body {
   text-align: center;
 }
 
-.btn-next {
+.question-btns-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
   margin-top: 2rem;
 }
 
+/* .btn-next {
+} */
+
 .btn-next::before {
   content: "Next";
+}
+
+/* .btn-prev {
+} */
+
+.btn-prev::before {
+  content: "Prev";
 }
 
 .btn-api-type {

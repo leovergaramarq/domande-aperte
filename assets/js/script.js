@@ -14,6 +14,7 @@ window.addEventListener("DOMContentLoaded", async () => {
   const $questionInfo = document.querySelector(".question-info-content");
   const $btnDeleteQuestion = document.querySelector(".btn-delete-question");
   const $category = document.querySelector(".category-content");
+  const $btnPrev = document.querySelector(".btn-prev");
   const $btnNext = document.querySelector(".btn-next");
   const $btnApiType = document.querySelector(".btn-api-type");
   const $audioPlayer = document.getElementById("audio-player");
@@ -40,6 +41,7 @@ window.addEventListener("DOMContentLoaded", async () => {
   setAudio();
   await initQuestions();
 
+  $btnPrev.addEventListener("click", prevQuestion);
   $btnNext.addEventListener("click", nextQuestion);
   $btnApiType.addEventListener("click", toggleApiType);
   $btnAudio.addEventListener("click", toggleAudio);
@@ -111,7 +113,7 @@ window.addEventListener("DOMContentLoaded", async () => {
     }
 
     categoryIndex = 0;
-    questionIndex = 0;
+    questionIndex = -1;
     questionsLists = getQuestionsLists();
     categories = Object.keys(questionsLists);
 
@@ -138,26 +140,40 @@ window.addEventListener("DOMContentLoaded", async () => {
   }
 
   function nextQuestion() {
-    if (categoryIndex >= categories.length) {
+    const category = categories[categoryIndex];
+    const lastQuestionIndex = questionsLists[category].length - 1;
+
+    if (
+      categoryIndex === categories.length - 1 &&
+      questionIndex === lastQuestionIndex
+    ) {
       alert("Hai finito le domande!");
       return;
     }
 
-    const category = categories[categoryIndex];
-    const questionObj = questionsLists[category][questionIndex];
-
-    if (questionIndex > questionsLists[category].length - 1) {
+    if (questionIndex === lastQuestionIndex) {
       categoryIndex++;
       questionIndex = 0;
-      nextQuestion();
-      return;
-    } else if (questionObj.alreadyAsked) {
+    } else {
       questionIndex++;
-      nextQuestion();
+    }
+    renderQuestion();
+  }
+
+  function prevQuestion() {
+    if (categoryIndex === 0 && questionIndex === 0) {
+      alert("Non ci sono domande precedenti!");
       return;
     }
 
-    renderQuestion(category, questionObj);
+    if (questionIndex === 0) {
+      categoryIndex--;
+      questionIndex = questionsLists[categories[categoryIndex]].length - 1;
+    } else {
+      questionIndex--;
+    }
+
+    renderQuestion();
   }
 
   function nextCategory() {
@@ -187,6 +203,8 @@ window.addEventListener("DOMContentLoaded", async () => {
     if (!questionObj) {
       questionObj = questionsLists[category][questionIndex];
     }
+    // console.log(categories, categoryIndex, category);
+    // console.log(questionsLists[category], questionIndex, questionObj);
 
     $category.textContent = `${category} (${categoryIndex + 1}/${
       categories.length
@@ -290,8 +308,8 @@ window.addEventListener("DOMContentLoaded", async () => {
   }
 
   function onKeyPressed(e) {
-    if (e.key === "ArrowLeft") onPrevCategory();
-    else if (e.key === "ArrowRight") nextCategory();
+    if (e.key === "ArrowLeft") prevQuestion();
+    else if (e.key === "ArrowRight") nextQuestion();
     else if (e.code === "Space") nextQuestion();
   }
 
@@ -317,9 +335,9 @@ window.addEventListener("DOMContentLoaded", async () => {
 
     if (Math.abs(xDiff) > Math.abs(yDiff)) {
       if (xDiff > 0) {
-        nextCategory();
+        nextQuestion();
       } else {
-        prevCategory();
+        prevQuestion();
       }
     } else {
     }
