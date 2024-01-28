@@ -10,30 +10,6 @@
   font-weight: 500;
 }
 
-/* @font-face {
-  font-family: "Poppins";
-  src: url("../fonts/Poppins/Poppins-SemiBold.ttf");
-  font-weight: 600;
-}
-
-@font-face {
-  font-family: "Poppins";
-  src: url("../fonts/Poppins/Poppins-Bold.ttf");
-  font-weight: 700;
-}
-
-@font-face {
-  font-family: "Poppins";
-  src: url("../fonts/Poppins/Poppins-ExtraBold.ttf");
-  font-weight: 800;
-}
-
-@font-face {
-  font-family: "Poppins";
-  src: url("../fonts/Poppins/Poppins-Black.ttf");
-  font-weight: 900;
-} */
-
 * {
   margin: 0;
   padding: 0;
@@ -41,9 +17,11 @@
 }
 
 body {
+  --primary-color: #eeb868;
+  --secondary-color: #250f49;
   font-family: "Poppins", sans-serif;
   font-weight: 400;
-  background-color: #250f49;
+  background-color: var(--secondary-color);
   color: #fff;
 }
 
@@ -53,7 +31,7 @@ body {
 }
 
 .btn-primary {
-  background-color: #eeb868;
+  background-color: var(--primary-color);
   width: min-content;
   padding: 0.5rem 1rem;
   border-radius: 5px;
@@ -61,7 +39,7 @@ body {
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
-  color: #250f49;
+  color: var(--secondary-color);
 }
 
 .content {
@@ -81,7 +59,7 @@ body {
   font-size: 2.5rem;
   font-weight: 500;
   margin-bottom: 1rem;
-  color: #eeb868;
+  color: var(--primary-color);
   text-align: center;
 }
 
@@ -103,7 +81,7 @@ body {
 }
 
 .category-info span:first-child {
-  color: #eeb868;
+  color: var(--primary-color);
 }
 
 .category-arrow {
@@ -115,13 +93,13 @@ body {
   align-items: center;
   border-radius: 50%;
   transition: background 0.1s ease-in-out, color 0.1s ease-in-out;
-  color: #eeb868;
+  color: var(--primary-color);
   cursor: pointer;
 }
 /* 
 .category-arrow:hover {
-  background-color: #eeb868;
-  color: #250f49;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
 } */
 
 .category-left::before {
@@ -193,21 +171,42 @@ body {
   content: "Next";
 }
 
-.api-type {
+.btn-api-type {
   cursor: pointer;
   position: absolute;
   top: 1rem;
   left: 1rem;
   transition: all 0.3s ease-in-out;
+  width: 64px;
+  height: 64px;
 }
 
-.api-type:hover {
+.btn-api-type:hover {
   scale: 1.1;
 }
 
-.api-type img {
-  width: 64px;
-  height: 64px;
+.btn-api-type img {
+  width: 100%;
+  height: 100%;
+}
+
+.btn-audio {
+  cursor: pointer;
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  transition: all 0.3s ease-in-out;
+  width: 36px;
+  height: 36px;
+}
+
+.btn-audio:hover {
+  scale: 1.1;
+}
+
+.btn-audio img {
+  width: 100%;
+  height: 100%;
 }
 
 .btn-add-question {
@@ -215,8 +214,8 @@ body {
   position: absolute;
   bottom: 1rem;
   right: 1rem;
-  background-color: #eeb868;
-  color: #250f49;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
   width: 3rem;
   height: 3rem;
   font-size: 3rem;
@@ -237,17 +236,20 @@ body {
 .modal-add-question {
   position: relative;
   margin: auto;
-  border-color: #eeb868;
+  border-color: var(--primary-color);
   border-radius: 5px;
 }
-
+.modal-add-question::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(1px);
+}
 .btn-close-modal {
   cursor: pointer;
   position: absolute;
   top: 0.25rem;
   right: 0.25rem;
   background-color: rgb(190, 190, 190);
-  color: #250f49;
+  color: var(--secondary-color);
   width: 1.5rem;
   height: 1.5rem;
   font-size: 1.5rem;
@@ -265,14 +267,14 @@ body {
   font-size: 1.5rem;
   font-weight: 500;
   margin-bottom: 2rem;
-  color: #eeb868;
+  color: var(--primary-color);
 }
 
 .form-add-question {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #250f49;
+  background-color: var(--secondary-color);
   color: white;
   padding: 24px 12px;
 }
@@ -297,7 +299,7 @@ body {
   padding: 0.5rem 1rem;
   border-radius: 5px;
   border: 1px solid #eeb868;
-  background-color: #250f49;
+  background-color: var(--secondary-color);
   color: white;
 }
 
@@ -324,9 +326,13 @@ body {
   opacity: 1;
 }
 
+#audio-player {
+  display: none;
+}
+
 @media only screen and (min-width: 768px) {
   .category-arrow:hover {
-    background-color: #eeb868;
-    color: #250f49;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
   }
 }

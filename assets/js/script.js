@@ -3,6 +3,8 @@ import { shuffle } from "./utils.js";
 
 const ASSET_CLOUD = "assets/icons/cloud.svg";
 const ASSET_FOLDER = "assets/icons/folder.svg";
+const ASSET_MUSIC_ON = "assets/icons/audio-on.svg";
+const ASSET_MUSIC_OFF = "assets/icons/audio-off.svg";
 
 window.addEventListener("DOMContentLoaded", async () => {
   // api.deleteById(103); // debug
@@ -13,7 +15,9 @@ window.addEventListener("DOMContentLoaded", async () => {
   const $btnDeleteQuestion = document.querySelector(".btn-delete-question");
   const $category = document.querySelector(".category-content");
   const $btnNext = document.querySelector(".btn-next");
-  const $apiType = document.querySelector(".api-type");
+  const $btnApiType = document.querySelector(".btn-api-type");
+  const $audioPlayer = document.getElementById("audio-player");
+  const $btnAudio = document.querySelector(".btn-audio");
   let $apiTypeImg;
   const $btnAddQuestion = document.querySelector(".btn-add-question");
   const $modalAddQuestion = document.querySelector(".modal-add-question");
@@ -30,12 +34,15 @@ window.addEventListener("DOMContentLoaded", async () => {
   let questions;
   let questionsLists;
   let categories;
+  let musicPlaying = false;
 
   setApiTypeImg();
-  await init();
+  setAudio();
+  await initQuestions();
 
   $btnNext.addEventListener("click", nextQuestion);
-  $apiType.addEventListener("click", toggleApiTypeImg);
+  $btnApiType.addEventListener("click", toggleApiType);
+  $btnAudio.addEventListener("click", toggleAudio);
   $btnAddQuestion.addEventListener("click", onAddQuestion);
   $btnCloseModal.addEventListener("click", onCloseModal);
   $btnSubmitForm.addEventListener("click", onSubmitForm);
@@ -52,13 +59,29 @@ window.addEventListener("DOMContentLoaded", async () => {
       $apiTypeImg = document.createElement("img");
       $apiTypeImg.src = api.isApiRemote() ? ASSET_CLOUD : ASSET_FOLDER;
       $apiTypeImg.alt = "api type";
-      $apiType.appendChild($apiTypeImg);
+      $btnApiType.appendChild($apiTypeImg);
     } else {
-      toggleApiTypeImg();
+      toggleApiType();
     }
   }
 
-  function toggleApiTypeImg() {
+  function setAudio() {
+    const $img = $btnAudio.querySelector("img");
+    $img.src = musicPlaying ? ASSET_MUSIC_ON : ASSET_MUSIC_OFF;
+
+    if (musicPlaying) {
+      if ($audioPlayer.paused) {
+        $audioPlayer.play();
+      }
+    } else {
+      if (!$audioPlayer.paused) {
+        $audioPlayer.pause();
+        // $audioPlayer.currentTime = 0;
+      }
+    }
+  }
+
+  function toggleApiType() {
     if (api.isApiRemote()) {
       api.useLocalApi();
     } else {
@@ -66,10 +89,15 @@ window.addEventListener("DOMContentLoaded", async () => {
     }
 
     $apiTypeImg.src = api.isApiRemote() ? ASSET_CLOUD : ASSET_FOLDER;
-    init().catch(console.log);
+    initQuestions().catch(console.log);
   }
 
-  async function init() {
+  function toggleAudio() {
+    musicPlaying = !musicPlaying;
+    setAudio();
+  }
+
+  async function initQuestions() {
     try {
       questions = await api.getQuestions();
     } catch (err) {
@@ -225,16 +253,8 @@ window.addEventListener("DOMContentLoaded", async () => {
     }
 
     $form.reset();
-    // onCloseModal();
 
-    // if (!questionsLists[category]) questionsLists[category] = [];
-    // questionsLists[category].push({
-    //   question,
-    //   alreadyAsked: false,
-    // });
-    // categories = Object.keys(questionsLists);
-
-    init().catch(console.log);
+    initQuestions().catch(console.log);
   }
 
   function onPrevCategory() {
@@ -247,8 +267,6 @@ window.addEventListener("DOMContentLoaded", async () => {
 
   async function onDeleteQuestion() {
     if (!confirm("Sei sicuro di voler cancellare questa domanda?")) return;
-    console.log("Confirm asked!");
-    return;
 
     const id = questionsLists[categories[categoryIndex]][questionIndex].id;
     if (id === undefined) {
@@ -263,7 +281,7 @@ window.addEventListener("DOMContentLoaded", async () => {
       return;
     }
 
-    init().catch(console.log);
+    initQuestions().catch(console.log);
   }
 
   function toggleBtnDeleteQuestion(e) {

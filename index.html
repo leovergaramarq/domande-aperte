@@ -10,44 +10,12 @@
   </head>
   <body>
     <div class="content">
-      <span class="api-type"></span>
+      <span class="btn-api-type"></span>
+      <span class="btn-audio"
+        ><img src="assets/icons/audio-off.svg" alt="Toggle music"
+      /></span>
       <span class="btn-add-question"></span>
-      <dialog class="modal-add-question">
-        <form class="form-add-question">
-          <div class="modal-title">Add question</div>
-          <div class="input-col">
-            <div class="input-question input-elem">
-              <label for="field-question">Question</label>
-              <input
-                type="text"
-                name="field-question"
-                id="field-question"
-                placeholder="Insert the question"
-                required
-              />
-            </div>
-            <div class="input-category input-elem">
-              <label for="category-field">Category</label>
-              <input
-                type="text"
-                name="category-field"
-                id="category-field"
-                placeholder="Insert the category"
-                required
-              />
-            </div>
-          </div>
-          <div class="form-submit-area">
-            <button class="btn-submit-form btn-primary">Add</button>
-            <img
-              src="assets/icons/check.svg"
-              alt="check"
-              class="check-status"
-            />
-          </div>
-        </form>
-        <div class="btn-close-modal"></div>
-      </dialog>
+
       <div class="main">
         <div class="title">Domande Aperte</div>
         <div class="description">
@@ -71,7 +39,45 @@
         <div class="btn-next btn-primary"></div>
       </div>
     </div>
-
+    <dialog class="modal-add-question">
+      <form class="form-add-question">
+        <div class="modal-title">Add question</div>
+        <div class="input-col">
+          <div class="input-question input-elem">
+            <label for="field-question">Question</label>
+            <input
+              type="text"
+              name="field-question"
+              id="field-question"
+              placeholder="Insert the question"
+              required
+            />
+          </div>
+          <div class="input-category input-elem">
+            <label for="category-field">Category</label>
+            <input
+              type="text"
+              name="category-field"
+              id="category-field"
+              placeholder="Insert the category"
+              required
+            />
+          </div>
+        </div>
+        <div class="form-submit-area">
+          <button class="btn-submit-form btn-primary">Add</button>
+          <img src="assets/icons/check.svg" alt="check" class="check-status" />
+        </div>
+      </form>
+      <div class="btn-close-modal"></div>
+    </dialog>
+    <audio id="audio-player" loop>
+      <source
+        src="assets/sounds/bitter_sweet_sounds_lofi_study.mp3"
+        type="audio/mp3"
+      />
+      Your browser does not support the audio element.
+    </audio>
     <script src="assets/js/script.js" type="module"></script>
   </body>
 </html>
